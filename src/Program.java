@@ -37,21 +37,12 @@ public class Program extends AbstractGame {
         game.run();
     }
 
-    public void borders() {
-
-        healthBorder.drawFromTopLeft(20, 40);
-        arena.update();
-
-    }
-
     public boolean updateGoalList(Player player, ArrayList<Goal> goals, int counter, Rectangle arena) {
 
         boolean flag = false;
         ArrayList<Goal> temp = new ArrayList<>();
 
-
         if (goals.size() == 0 || counter == 100) {
-
             double randX = ThreadLocalRandom.current().nextInt((int) arena.left() + 20, (int) arena.right() - 20);
             double randY = ThreadLocalRandom.current().nextInt((int) arena.top() + 20, (int) arena.bottom() - 20);
 
@@ -60,9 +51,7 @@ public class Program extends AbstractGame {
         }
 
         for (Goal goal : goals) {
-
             goal.update();
-
             if (player.getRect().intersects(goal.getRect())) {
                 goal.die();
                 score++;
@@ -78,11 +67,6 @@ public class Program extends AbstractGame {
         }
 
         return flag;
-    }
-
-    public boolean collisionDetection(Character character1, Character character2) {
-
-        return character1.getRect().intersects(character2.getRect());
     }
 
     public void updateHealthBar() {
@@ -123,7 +107,8 @@ public class Program extends AbstractGame {
         else {
             FONT.drawString("Score: " + score, 20, 110);
             updateHealthBar();
-            borders();
+            healthBorder.drawFromTopLeft(20, 40);
+            arena.update();
         }
 
         if (score == LEVEL1_SCORE) {
@@ -131,6 +116,10 @@ public class Program extends AbstractGame {
             counter = 0;
             score = 0;
             level++;
+        }
+
+        if (player1.getHealth() == 0) {
+            gameState = "dead";
         }
 
         switch (gameState) {
@@ -143,7 +132,7 @@ public class Program extends AbstractGame {
                     counter = 0;
                 }
 
-                if (collisionDetection(player1, enemy1)) {
+                if (player1.getRect().intersects(enemy1.getRect())) {
                     FONT.drawString("MONKEYMAN!", 600, 600);
                     player1.gotHit();
                 }
@@ -151,9 +140,9 @@ public class Program extends AbstractGame {
                 break;
 
             case "level-up":
-                drawMidScreen("LEVEL UP!");
 
-                if (counter > 300) {
+                drawMidScreen("LEVEL UP!");
+                if (counter > 200) {
                     gameState = "level";
                     arena = new PlayArea(level);
                 }
@@ -163,6 +152,12 @@ public class Program extends AbstractGame {
             case "win":
                 drawMidScreen("congrats you won");
                 break;
+
+            case "dead":
+                drawMidScreen("you lost");
+                break;
+
+
         }
 
         counter++;
