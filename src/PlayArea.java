@@ -3,12 +3,15 @@ import bagel.util.Rectangle;
 
 public class PlayArea {
 
-    private Rectangle area;
-    private Image border;
     private final Rectangle LEVEL1_AREA = new Rectangle(0,0,1200, 750);
     private final Rectangle LEVEL2_AREA = new Rectangle(150,93.5,900, 563);
+    private final Rectangle LEVEL3_AREA = new Rectangle(300,187,600, 375);
     private final Image LEVEL1_BORDER = new Image("res/level1border.png");
     private final Image LEVEL2_BORDER = new Image("res/level2border.png");
+    private final Image LEVEL3_BORDER = new Image("res/level3border.png");
+
+    private Rectangle area = LEVEL1_AREA;
+    private Image border = LEVEL1_BORDER;
 
     public PlayArea(int level) {
 
@@ -16,22 +19,15 @@ public class PlayArea {
             area = LEVEL2_AREA;
             border = LEVEL2_BORDER;
         }
-        else {
-            area = LEVEL1_AREA;
-            border = LEVEL1_BORDER;
+
+        if (level == 3) {
+            area = LEVEL3_AREA;
+            border = LEVEL3_BORDER;
         }
     }
 
     public Rectangle getRect() {
         return area;
-    }
-
-    public double getWidth() {
-        return this.area.right() - this.area.left();
-    }
-
-    public double getHeight() {
-        return this.area.bottom() - this.area.top();
     }
 
     public void update() {

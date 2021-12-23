@@ -23,6 +23,10 @@ public class Player extends Character {
         if (level == 2) {
             this.position = new Point(200, 200);
         }
+
+        if (level == 3) {
+            this.position = new Point(300, 300);
+        }
     }
 
     public void update(Input input, PlayArea arena) {

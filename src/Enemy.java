@@ -10,6 +10,9 @@ public class Enemy extends Character {
         if (level == 2) {
             this.position = new Point(200, 600);
         }
+        if (level == 3) {
+            this.position = new Point(200, 600);
+        }
     }
 
     public void update(Point playerPosition) {
