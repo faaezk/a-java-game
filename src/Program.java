@@ -8,6 +8,7 @@ public class Program extends AbstractGame {
 
     private final Font FONT = new Font("res/conformable.otf", 50);
     private final int LEVEL1_SCORE = 10;
+    private final int LEVEL2_SCORE = 20;
 
     private Player player1;
     private Enemy enemy1;
@@ -111,14 +112,19 @@ public class Program extends AbstractGame {
             arena.update();
         }
 
-        if (score == LEVEL1_SCORE) {
+        if (score == LEVEL1_SCORE && level == 1) {
             gameState = "level-up";
             counter = 0;
-            score = 0;
             level++;
         }
 
-        if (player1.getHealth() == 0) {
+        if (score == LEVEL2_SCORE && level == 2) {
+            gameState = "win";
+            counter = 0;
+            level++;
+        }
+
+        if (player1.getHealth() == 0 && gameState.equals("level")) {
             gameState = "dead";
         }
 
@@ -145,6 +151,10 @@ public class Program extends AbstractGame {
                 if (counter > 200) {
                     gameState = "level";
                     arena = new PlayArea(level);
+                    player1.resetPosition(level);
+                    enemy1.resetPosition(level);
+                    goals.clear();
+
                 }
 
                 break;

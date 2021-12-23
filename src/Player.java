@@ -19,6 +19,12 @@ public class Player extends Character {
         this.health = this.health - 1;
     }
 
+    public void resetPosition(int level) {
+        if (level == 2) {
+            this.position = new Point(200, 200);
+        }
+    }
+
     public void update(Input input, PlayArea arena) {
 
         if (input.isDown(Keys.LEFT)) {

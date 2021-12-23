@@ -6,6 +6,12 @@ public class Enemy extends Character {
         super(rightImage, leftImage, speed, x, y);
     }
 
+    public void resetPosition(int level) {
+        if (level == 2) {
+            this.position = new Point(200, 600);
+        }
+    }
+
     public void update(Point playerPosition) {
 
         double moveX = 0;

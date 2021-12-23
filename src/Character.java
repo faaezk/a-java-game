@@ -23,6 +23,8 @@ public abstract class Character implements Collidable {
         return this.position;
     }
 
+    public abstract void resetPosition(int level);
+
     @Override
     public Rectangle getRect() {
         return this.characterIMGRight.getBoundingBoxAt(position);

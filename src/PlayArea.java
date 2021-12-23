@@ -26,6 +26,14 @@ public class PlayArea {
         return area;
     }
 
+    public double getWidth() {
+        return this.area.right() - this.area.left();
+    }
+
+    public double getHeight() {
+        return this.area.bottom() - this.area.top();
+    }
+
     public void update() {
         border.drawFromTopLeft(area.topLeft().x, area.topLeft().y);
     }
