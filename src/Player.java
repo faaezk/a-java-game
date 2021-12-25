@@ -15,8 +15,14 @@ public class Player extends Character {
         return health;
     }
 
-    public void gotHit() {
-        this.health = this.health - 1;
+    public void gotHit(String hitter) {
+
+        if (hitter.equals("enemy")) {
+            this.health = this.health - 1;
+        }
+        if (hitter.equals("weapon")) {
+            this.health = this.health - 10;
+        }
     }
 
     public void resetPosition(int level) {

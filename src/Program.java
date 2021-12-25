@@ -15,18 +15,20 @@ public class Program extends AbstractGame {
     private Enemy enemy1;
     private ArrayList<Goal> goals = new ArrayList<>();
     private PlayArea arena;
+    private Weapon water;
 
-    private Image healthbar = new Image("res/healthbar.png");
+    private Image healthBar = new Image("res/healthbar.png");
     private Image healthBorder = new Image("res/healthborder.png");
 
     private String gameState = "start";
     private int level = 1;
     private int counter;
     private int score = 0;
+    private boolean activeWeapon = false;
 
     public Program() {
         super(1200, 750, "A game");
-        player1 = new Player("res/playerRight.png", "res/playerLeft.png", 5.0, 600, 100);
+        player1 = new Player("res/playerRight.png", "res/playerLeft.png", 5.0, 800, 100);
         enemy1 = new Enemy("res/fishRight.png", "res/fishLeft.png", 5.0, 300, 600);
         arena = new PlayArea(level);
     }
@@ -88,12 +90,19 @@ public class Program extends AbstractGame {
         }
 
         stuff.setSection(0, 0, health * 2.5, 25);
-        healthbar.drawFromTopLeft(25, 45, stuff.setBlendColour(healthStatus));
+        healthBar.drawFromTopLeft(25, 45, stuff.setBlendColour(healthStatus));
     }
 
     public void drawMidScreen(String message) {
         FONT.drawString(message,
                 (Window.getWidth() - FONT.getWidth(message))/2.0, Window.getHeight()/2.0);
+    }
+
+    public void weaponCollision() {
+        if (water.getRect().intersects(player1.getRect())) {
+            player1.gotHit("weapon");
+            activeWeapon = false;
+        }
     }
 
     @Override
@@ -125,15 +134,28 @@ public class Program extends AbstractGame {
             level++;
         }
 
-        if (player1.getHealth() == 0 && gameState.equals("level")) {
+        if (player1.getHealth() <= 0 && gameState.equals("level")) {
             gameState = "dead";
         }
 
         switch (gameState) {
 
             case "level":
+
                 player1.update(input, arena);
                 enemy1.update(player1.getPosition());
+
+                if (activeWeapon) {
+                    if (!water.update()) {
+                        activeWeapon = false;
+                    }
+                    weaponCollision();
+                }
+
+                if (ThreadLocalRandom.current().nextInt(0, 50) == 2 && !activeWeapon) {
+                    water = new Weapon(enemy1, player1);
+                    activeWeapon = true;
+                }
 
                 if (updateGoalList(player1, goals, counter, arena.getRect())) {
                     counter = 0;
@@ -141,7 +163,7 @@ public class Program extends AbstractGame {
 
                 if (player1.getRect().intersects(enemy1.getRect())) {
                     FONT.drawString("MONKEYMAN!", 600, 600);
-                    player1.gotHit();
+                    player1.gotHit("enemy");
                 }
 
                 break;
