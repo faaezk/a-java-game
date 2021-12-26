@@ -16,7 +16,6 @@ public abstract class Character implements Collidable {
         this.speed = speed;
         this.characterIMGRight = new Image(rightImage);
         this.characterIMGLeft = new Image(leftImage);
-
     }
 
     public Point getPosition() {

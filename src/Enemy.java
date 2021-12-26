@@ -11,7 +11,7 @@ public class Enemy extends Character {
             this.position = new Point(200, 600);
         }
         if (level == 3) {
-            this.position = new Point(200, 600);
+            this.position = new Point(840, 510);
         }
     }
 
@@ -20,11 +20,10 @@ public class Enemy extends Character {
         double moveX = 0;
         double moveY;
 
-        if (position.distanceTo(playerPosition) > 10.0) {
+        if (position.distanceTo(playerPosition) > 20.0) {
 
             moveX = (playerPosition.x - position.x)/30.0;
             moveY = (playerPosition.y - position.y)/30.0;
-
             position = new Point(position.x + moveX, position.y + moveY);
         }
 

@@ -32,28 +32,24 @@ public class Weapon {
         double rise = ORIGIN.y - DESTINATION.y;
 
         if (run > 0 && rise > 0) {
-            System.out.println(java.lang.Math.atan(rise / run));
             this.angle = java.lang.Math.toRadians(360 - java.lang.Math.toDegrees(java.lang.Math.atan(rise / run)));
             this.yChange = java.lang.Math.sin(angle) * SPEED;
             this.xChange = java.lang.Math.cos(angle) * SPEED;
         }
 
         else if (run > 0 && rise < 0) {
-            System.out.println(java.lang.Math.atan(-rise / run));
             this.angle = java.lang.Math.toRadians(java.lang.Math.toDegrees(java.lang.Math.atan(-rise / run)));
             this.yChange = java.lang.Math.sin(angle) * SPEED;
             this.xChange = java.lang.Math.cos(angle) * SPEED;
         }
 
         else if (run < 0 && rise < 0) {
-            System.out.println(java.lang.Math.atan(rise / run));
             this.angle = java.lang.Math.toRadians(180 - java.lang.Math.toDegrees(java.lang.Math.atan(rise / run)));
             this.yChange = java.lang.Math.sin(angle) * SPEED;
             this.xChange = java.lang.Math.cos(angle) * SPEED;
         }
 
         else if (run < 0 && rise > 0) {
-            System.out.println(java.lang.Math.atan(rise / -run));
             this.angle = java.lang.Math.toRadians(180 + java.lang.Math.toDegrees(java.lang.Math.atan(rise / -run)));
             this.yChange = java.lang.Math.sin(angle) * SPEED;
             this.xChange = java.lang.Math.cos(angle) * SPEED;

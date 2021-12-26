@@ -162,7 +162,6 @@ public class Program extends AbstractGame {
                 }
 
                 if (player1.getRect().intersects(enemy1.getRect())) {
-                    FONT.drawString("MONKEYMAN!", 600, 600);
                     player1.gotHit("enemy");
                 }
 
